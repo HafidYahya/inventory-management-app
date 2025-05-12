@@ -1,0 +1,5 @@
+.filament-sidebar .fi-sidebar-header img {
+    height: 50px !important;
+    max-height: 100% !important;
+    width: auto;
+}
