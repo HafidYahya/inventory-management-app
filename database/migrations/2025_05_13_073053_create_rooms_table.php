@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('master_data_assets', function (Blueprint $table) {
-            $table->string('epc')->unique()->nullable()->after('product_code');
-            $table->integer('initial_quantity')->default(0)->after('unit');
+        Schema::create('rooms', function (Blueprint $table) {
+            $table->id();
+            $table->string("room_code")->unique();
+            $table->string("name");
+            $table->foreignId('location_id')->constrained('master_data_locations')->cascadeOnDelete();            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('master_data_assets', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('rooms');
     }
 };

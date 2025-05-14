@@ -20,7 +20,7 @@ class LocationResource extends Resource
 {
     protected static ?string $model = Location::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-map-pin';
+    protected static ?string $navigationIcon = 'heroicon-s-building-office';
 
     protected static ?string $navigationGroup = 'Master Data';
 
