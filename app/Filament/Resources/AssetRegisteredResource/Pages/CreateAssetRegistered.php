@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAssetRegistered extends CreateRecord
 {
     protected static string $resource = AssetRegisteredResource::class;
+
+    public function getHeader(): ?\Illuminate\View\View
+    {
+        return view('scripts.rfid-script');
+    }
+
+    
 }

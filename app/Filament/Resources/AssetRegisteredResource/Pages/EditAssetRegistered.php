@@ -16,4 +16,11 @@ class EditAssetRegistered extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getExtraScripts(): array
+    {
+        return [
+            asset('js/custom-script.js'),
+        ];
+    }
 }

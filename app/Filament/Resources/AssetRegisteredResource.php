@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AssetRegisteredResource\Pages;
 use App\Filament\Resources\AssetRegisteredResource\RelationManagers;
+use App\Http\Livewire\RfidListener;
 use App\Models\Asset;
 use App\Models\AssetRegistered;
 use Filament\Forms;
@@ -34,6 +35,9 @@ class AssetRegisteredResource extends Resource
     {
         return $form
             ->schema([
+                \Filament\Forms\Components\View::make('livewire.rfid-listener')
+            ->columnSpanFull(),
+
                 Select::make('master_data_asset_id')
                     ->label('Asset')
                     ->options(Asset::all()->pluck('name','id'))
@@ -42,6 +46,7 @@ class AssetRegisteredResource extends Resource
                 
                 TextInput::make('epc')
                     ->label('EPC')
+                    ->reactive()
                     ->readOnly()
                     ->unique(),
 
