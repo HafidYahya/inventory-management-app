@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Asset extends Model
 {
@@ -21,24 +22,28 @@ class Asset extends Model
     return $this->hasMany(AssetTransaction::class, 'asset_id');
 }
 
-public function getStockAttribute()
-{
-    $in = $this->transactions()->where('type', 'in')->sum('quantity');
-    $out = $this->transactions()->where('type', 'out')->sum('quantity');
-    return $this->initial_quantity + $in - $out;
-}
+// Relasi ke stok berjalan
+    public function stocks(): HasMany
+    {
+        return $this->hasMany(AssetStock::class, 'asset_id');
+    }
 
-public function getStatusAttribute()
-{
-    $stock = $this->stock;
+    // 🔁 Jumlah total stok dari asset_stocks
+    public function getStockAttribute(): int
+    {
+        return $this->stocks()->sum('quantity'); // ✅ ini sumber stok sekarang
+    }
 
-    // Disposal jika usia aset > 5 tahun
-    $age = now()->diffInYears($this->created_at);
-    if ($age >= 5) return 'Disposal';
+// 💡 Status stok
+    public function getStatusAttribute(): string
+    {
+        $stock = $this->stock;
+        $age = now()->diffInYears($this->created_at);
 
-    if ($stock === 0) return 'Habis';
-    if ($stock <= 5) return 'Hampir Habis';
-    return 'Tersedia';
-}
+        if ($age >= 5) return 'Disposal';
+        if ($stock === 0) return 'Habis';
+        if ($stock <= 5) return 'Hampir Habis';
+        return 'Tersedia';
+    }
 
 }

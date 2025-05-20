@@ -25,7 +25,7 @@ class AssetRegisteredResource extends Resource
 {
     protected static ?string $model = AssetRegistered::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Assets';
 

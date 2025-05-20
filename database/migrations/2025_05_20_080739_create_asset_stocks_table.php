@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asset_transactions', function (Blueprint $table) {
+        Schema::create('asset_stocks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_id')->constrained('master_data_assets')->cascadeOnDelete();
-            $table->enum('type', ['in', 'out']);
-            $table->integer('quantity');
-            $table->string('reason')->nullable();
-            $table->foreignId('location_id')->nullable()->constrained('master_data_locations')->nullOnDelete();
-            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('location_id')->constrained('master_data_locations')->cascadeOnDelete();
+            $table->foreignId('room_id')->constrained('rooms')->cascadeOnDelete();
+            $table->integer('quantity')->default(0);
             $table->timestamps();
+            // Unik per aset + lokasi + ruangan
+            $table->unique(['asset_id', 'location_id', 'room_id']);
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asset_transactions');
+        Schema::dropIfExists('asset_stocks');
     }
 };

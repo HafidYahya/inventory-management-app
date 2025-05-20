@@ -36,6 +36,7 @@ class LocationResource extends Resource
                     ->required()
                     ->label('Location Name'),
                 Textarea::make('description')
+                    ->label('Address')
                     ->rows(3)
                     ->placeholder('Optional'),                
             ]);
@@ -57,7 +58,7 @@ class LocationResource extends Resource
                     ->copyMessage('Location Name Copied'),
                 TextColumn::make('description')
                     ->limit(30)
-                    ->label('Description'),
+                    ->label('Address'),
                 TextColumn::make('created_at')
                     ->dateTime('d M Y H:i')
                     ->label('Date Created'),
